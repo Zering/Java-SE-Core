@@ -24,13 +24,17 @@ public class ExchangerDemo {
 			public void run() {
 				ArrayList<Integer> buff = buff1;
 				while(true){
-//					for (Integer integer : buff) {
-//						System.out.println(Thread.currentThread().getName()+":"+integer);
-//					}
+					
+
 					if (buff.size() >= 10) {
 						try {
+							System.out.println("before exchange buff1.size():"+buff.size());
 							buff = exchanger.exchange(buff);
 							System.out.println("Exchange buff1");
+							System.out.println("after exchange buff1.size():"+buff.size());
+//							for (Integer integer : buff) {
+//								System.out.println(Thread.currentThread().getName()+": "+integer);
+//							}
 							buff.clear();
 						} catch (InterruptedException e) {
 							e.printStackTrace();
@@ -52,9 +56,10 @@ public class ExchangerDemo {
 			public void run() {
 				ArrayList<Integer> buff = buff2;
 				while (true) {
-					for (Integer integer : buff) {
-						System.out.println(Thread.currentThread().getName()+":"+integer);
-					}
+					System.out.println("buff2.size():"+buff.size());
+//					for (Integer integer : buff) {
+//						System.out.println(Thread.currentThread().getName()+": "+integer);
+//					}
 					
 					try {
 						Thread.sleep(1000);

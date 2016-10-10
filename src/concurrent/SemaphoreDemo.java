@@ -24,28 +24,21 @@ public class SemaphoreDemo {
 		
 		ExecutorService executorService = Executors.newCachedThreadPool();
 		
-		//第三个线程被限制
+		//第三个线程被限制,在release一个元素之后才能加入第三个元素
 		for(int i = 0; i < 3;i++){
 			executorService.execute(new Runnable() {
 				@Override
 				public void run() {
 					try {
 						set.add(Thread.currentThread().getName());
+						Thread.sleep(1000);
+						set.remove(Thread.currentThread().getName());
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 				}
 			});
 		}
-		for(int i = 0; i < 3;i++){
-			executorService.execute(new Runnable() {
-				@Override
-				public void run() {
-					set.remove(Thread.currentThread().getName());
-				}
-			});
-		}
-		
 		executorService.shutdown();
 		
 	}
@@ -78,3 +71,4 @@ class BoundedHashSet<T>{
 		}
 	}
 }
+
