@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bookstore>
+	<book id="1">
+		<name>黑客与画家</name>
+		<author>Paul Graham</author>
+		<publish>人民邮电出版社</publish>
+		<price>49</price>
+	</book>
+	<book id="2">
+		<name>算法<pub>第四版</pub></name>
+		<category>图灵图书系列</category>
+		<price>99</price>
+	</book>
+</bookstore>
