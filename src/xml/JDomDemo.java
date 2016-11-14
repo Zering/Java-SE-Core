@@ -1,15 +1,20 @@
 package xml;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.Attribute;
+import org.jdom2.CDATA;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 import com.alibaba.fastjson.JSON;
 
@@ -75,9 +80,38 @@ public class JDomDemo {
 			e.printStackTrace();
 		}
 	}
+	
+	public void createXml() {
+		Element rss = new Element("rss");
+		rss.setAttribute("version", "2.0");
+		Document document = new Document(rss);
+		Element channel = new Element("channel");
+		rss.addContent(channel);
+		Element title = new Element("title");
+		title.setText("国内最新新闻");
+		channel.addContent(title);
+		
+		Element escape = new Element("title");
+		CDATA content = new CDATA("d$#@<>dE");
+		escape.addContent(content);
+		channel.addContent(escape);
+		
+		Format format = Format.getPrettyFormat();
+		File file = new File("src/xml/rssnewswritenbyjdom.xml");
+		XMLOutputter outputter = new XMLOutputter(format);
+		try {
+			outputter.output(document, new FileOutputStream(file));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 	public static void main(String[] args) {
 		JDomDemo demo = new JDomDemo();
-		demo.xmlParser();
+//		demo.xmlParser();
+		demo.createXml();
 	}
 }

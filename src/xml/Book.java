@@ -5,7 +5,7 @@ public class Book {
 	private String name;
 	private String author;
 	private String publish;
-	private String Category;
+	private String category;
 	private String price;
 	public String getId() {
 		return id;
@@ -31,11 +31,12 @@ public class Book {
 	public void setPublish(String publish) {
 		this.publish = publish;
 	}
+	
 	public String getCategory() {
-		return Category;
+		return category;
 	}
 	public void setCategory(String category) {
-		Category = category;
+		this.category = category;
 	}
 	public String getPrice() {
 		return price;
