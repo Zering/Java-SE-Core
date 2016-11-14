@@ -13,9 +13,12 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class DomRead {
+public class DomDemo {
 
-	public static void main(String[] args) {
+	/**
+	 * xml解析
+	 */
+	public void xmlParser() {
 		DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
@@ -59,5 +62,10 @@ public class DomRead {
 			e.printStackTrace();
 		} 
 		
+	}
+	
+	public static void main(String[] args) {
+		DomDemo domDemo = new DomDemo();
+		domDemo.xmlParser();
 	}
 }

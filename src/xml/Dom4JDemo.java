@@ -13,7 +13,7 @@ import org.dom4j.io.SAXReader;
 
 import com.alibaba.fastjson.JSON;
 
-public class Dom4JRead {
+public class Dom4JDemo {
 
 	private static List<Book> bookListStorage = new ArrayList<Book>();
 	
@@ -22,7 +22,7 @@ public class Dom4JRead {
 		return bookListStorage;
 	}
 
-	public static void main(String[] args) {
+	public void xmlParser() {
 		SAXReader saxReader = new SAXReader();
 		try {
 			Document document = saxReader.read(new File("src/xml/books.xml"));
@@ -68,5 +68,10 @@ public class Dom4JRead {
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) {
+		Dom4JDemo demo = new Dom4JDemo();
+		demo.xmlParser();
 	}
 }

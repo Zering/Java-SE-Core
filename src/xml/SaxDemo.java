@@ -10,9 +10,12 @@ import org.xml.sax.SAXException;
 
 import com.alibaba.fastjson.JSON;
 
-public class SaxRead {
+public class SaxDemo {
 
-	public static void main(String[] args) {
+	/**
+	 * xml解析
+	 */
+	public void xmlParser() {
 		SAXParserFactory factory = SAXParserFactory.newInstance();
 		try {
 			SAXParser parser = factory.newSAXParser();
@@ -27,5 +30,10 @@ public class SaxRead {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+	}
+	public static void main(String[] args) {
+		SaxDemo saxDemo = new SaxDemo();
+		saxDemo.xmlParser();
 	}
 }

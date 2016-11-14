@@ -13,7 +13,7 @@ import org.jdom2.input.SAXBuilder;
 
 import com.alibaba.fastjson.JSON;
 
-public class JDOMRead {
+public class JDomDemo {
 
 	private static List<Book> bookliststorage = new ArrayList<Book>();
 	
@@ -22,8 +22,7 @@ public class JDOMRead {
 		return bookliststorage;
 	}
 
-
-	public static void main(String[] args) {
+	public void xmlParser() {
 		SAXBuilder saxBuilder = new SAXBuilder();
 		try {
 			Document document = saxBuilder.build(new File("src/xml/books.xml"));
@@ -75,6 +74,10 @@ public class JDOMRead {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+	}
+
+	public static void main(String[] args) {
+		JDomDemo demo = new JDomDemo();
+		demo.xmlParser();
 	}
 }
