@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -20,10 +19,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 
 /**
  * 根据已有的excel中的地址信息，调用百度地图api获得经纬度信息
@@ -59,7 +58,6 @@ public class GetLatAndLngByAddress {
 		Map<String, BigDecimal> map = new HashMap<>();
 		try {
 			myURL = getBaiduMapUrl(addr);
-			System.out.println(myURL);
 			httpsConn = (URLConnection) myURL.openConnection();
 			if (httpsConn != null) {
 				InputStreamReader insr = new InputStreamReader(httpsConn.getInputStream(), "UTF-8");
@@ -86,17 +84,28 @@ public class GetLatAndLngByAddress {
 		return map;
 	}
 
-	public List<String> getAddress(File path) {
+	/**
+	 * 从excel获取地址信息
+	 * 
+	 * @param path
+	 *            excel文件路径
+	 * @param sheetNum
+	 *            读取第几个sheet（从0开始）
+	 * @param col
+	 *            读取第几列（从0开始）
+	 * @return
+	 */
+	public List<String> getAddress(String path, int sheetNum, int col) {
+		File file = new File(path);
 		List<String> result = new ArrayList<>();
 		try {
-			InputStream ins = new FileInputStream(path);
-			HSSFWorkbook workbook = new HSSFWorkbook(ins);
-			HSSFSheet sheet = workbook.getSheetAt(0);
+			InputStream ins = new FileInputStream(file);
+			Workbook workbook = WorkbookFactory.create(ins);
+			Sheet sheet = workbook.getSheetAt(sheetNum);
 			Iterator<Row> iterator = sheet.rowIterator();
 			while (iterator.hasNext()) {
-				HSSFRow row = (HSSFRow) iterator.next();
-				// System.out.println(row.getCell(3));
-				result.add(String.valueOf(row.getCell(3)));
+				Row row = iterator.next();
+				result.add(String.valueOf(row.getCell(col)));
 			}
 			System.out.println("read over");
 			ins.close();
@@ -107,32 +116,55 @@ public class GetLatAndLngByAddress {
 		return result;
 	}
 
-	public void writeLatAndLng(File file, List<Address> list) throws Exception {
-		HSSFWorkbook wb = new HSSFWorkbook();
-		HSSFSheet sheet = (HSSFSheet) wb.createSheet("sheet1");
-		for (int i = 0; i < list.size(); i++) {
-			HSSFRow row = sheet.createRow(i);
-
-			row.createCell(0).setCellValue(list.get(i).getAddress());
-			row.createCell(1).setCellValue(list.get(i).getLng());
-			row.createCell(2).setCellValue(list.get(i).getLat());
+	/**
+	 * 指定列写入经纬度
+	 * 
+	 * @param path
+	 *            文件路劲
+	 * @param list
+	 *            api读取到的地址、经纬度信息
+	 * @param sheetNum
+	 *            sheet位置
+	 * @param addressNum
+	 *            对比地址进行确认
+	 * @param lngNum
+	 *            经度
+	 * @param latNum
+	 *            纬度
+	 * @throws Exception
+	 */
+	public void writeLatAndLng(String path, List<Address> list, int sheetNum, int addressNum, int lngNum, int latNum)
+			throws Exception {
+		System.out.println("write start...");
+		File file = new File(path);
+		InputStream ins = new FileInputStream(file);
+		Workbook workbook = WorkbookFactory.create(ins);
+		Sheet sheet = workbook.getSheetAt(sheetNum);
+		for (int i = 1; i < list.size(); i++) {
+			Row row = sheet.getRow(i);
+			if ((row.getCell(addressNum).toString()).equals(list.get(i).getAddress())) {
+				row.createCell(lngNum).setCellValue(list.get(i).getLng());
+				row.createCell(latNum).setCellValue(list.get(i).getLat());
+			}
 		}
-
+		
 		OutputStream outputStream = new FileOutputStream(file);
-		wb.write(outputStream);
+		workbook.write(outputStream);
 		System.out.println("wirte over");
 		outputStream.flush();
+		ins.close();
 		outputStream.close();
-		wb.close();
+		workbook.close();
 	}
 
 	public static void main(String[] args) {
 
 		System.out.println("Start...");
 		GetLatAndLngByAddress getLatAndLngByAddress = new GetLatAndLngByAddress();
-		File file = new File("C:/Users/luco/Desktop/外勤系统/address1.xls");
-		List<String> addresses = getLatAndLngByAddress.getAddress(file);
+		String path = "C:/Users/luco/Desktop/外勤系统/数据调整/合作医疗主数据20161124.xlsx";
+		List<String> addresses = getLatAndLngByAddress.getAddress(path, 3, 3);
 		List<Address> lists = new ArrayList<>();
+		System.out.println("fetch lng and lat...");
 		for (int i = 0; i < addresses.size(); i++) {
 			String address = addresses.get(i);
 			Map<String, BigDecimal> lngAndLat = getLatAndLngByAddress.getLatAndLngByAddress(address);
@@ -141,21 +173,52 @@ public class GetLatAndLngByAddress {
 			lists.add(new Address(address, lat, lng));
 		}
 
-		File fileOut = new File("C:/Users/luco/Desktop/外勤系统/address2.xls");
-		if (!fileOut.exists()) {
-			try {
-				fileOut.createNewFile();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
 		try {
-			getLatAndLngByAddress.writeLatAndLng(fileOut, lists);
+			getLatAndLngByAddress.writeLatAndLng(path, lists, 3, 3, 1, 2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		System.out.println("End!");
 
+	}
+
+}
+
+class Address {
+
+	private String address;
+	private String lat;
+	private String lng;
+
+	public Address(String address, String lat, String lng) {
+		super();
+		this.address = address;
+		this.lat = lat;
+		this.lng = lng;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public void setLat(String lat) {
+		this.lat = lat;
+	}
+
+	public String getLng() {
+		return lng;
+	}
+
+	public void setLng(String lng) {
+		this.lng = lng;
 	}
 
 }
