@@ -147,7 +147,7 @@ public class GetLatAndLngByAddress {
 				row.createCell(latNum).setCellValue(list.get(i).getLat());
 			}
 		}
-		
+
 		OutputStream outputStream = new FileOutputStream(file);
 		workbook.write(outputStream);
 		System.out.println("wirte over");
@@ -161,8 +161,9 @@ public class GetLatAndLngByAddress {
 
 		System.out.println("Start...");
 		GetLatAndLngByAddress getLatAndLngByAddress = new GetLatAndLngByAddress();
-		String path = "C:/Users/luco/Desktop/外勤系统/数据调整/合作医疗主数据20161124.xlsx";
-		List<String> addresses = getLatAndLngByAddress.getAddress(path, 3, 3);
+//		String path = "C:/Users/luco/Desktop/外勤系统/数据调整/合作医疗主数据20161124.xlsx";
+		String path = "C:/Users/luco/Desktop/外勤系统/数据调整/工作簿1.xlsx";
+		List<String> addresses = getLatAndLngByAddress.getAddress(path, 0, 0);
 		List<Address> lists = new ArrayList<>();
 		System.out.println("fetch lng and lat...");
 		for (int i = 0; i < addresses.size(); i++) {
@@ -174,7 +175,7 @@ public class GetLatAndLngByAddress {
 		}
 
 		try {
-			getLatAndLngByAddress.writeLatAndLng(path, lists, 3, 3, 1, 2);
+			getLatAndLngByAddress.writeLatAndLng(path, lists, 0, 0, 1, 2);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
