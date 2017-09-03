@@ -79,7 +79,7 @@
 
         <!-- 算法4 的jar包 需要导入到本地maven库 -->
         <!-- mvn install:install-file -Dfile="E:\git_repo\Java-SE-Core\lib\algs4.jar" -DgroupId=edu.princeton.cs
-        -DartifactId=algs4 -Dversion=4.0.0 -Dpackaginging=jar -->
+        -DartifactId=algs4 -Dversion=4.0.0 -Dpackaging=jar -->
         <dependency>
             <groupId>edu.princeton.cs</groupId>
             <artifactId>algs4</artifactId>
