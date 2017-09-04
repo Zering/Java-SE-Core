@@ -4,8 +4,8 @@ Java基础部分练习,包括集合，并发，IO，JVM,算法，socket，xml等
 
 	│  //来自《算法 第4版》
 	|   jar包导入到本地maven库的命令(注意替换jar包地址)  
-  |   mvn install:install-file -Dfile="E:\git_repo\Java-SE-Core\lib\algs4.jar" 
-  |   -DgroupId=edu.princeton.cs -DartifactId=algs4 -Dversion=4.0.0 -Dpackaging=jar
+    | mvn install:install-file -Dfile="E:\git_repo\Java-SE-Core\lib\algs4.jar" 
+    |  -DgroupId=edu.princeton.cs -DartifactId=algs4 -Dversion=4.0.0 -Dpackaging=jar
 	├─algorithm4th
 	│  └─chapter2
 	│          Example.java
