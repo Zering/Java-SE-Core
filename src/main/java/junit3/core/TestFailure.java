@@ -1,9 +1,5 @@
 package junit3.core;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
 /**
  * Created by zhanghaojie on 2017/8/14.
  */
