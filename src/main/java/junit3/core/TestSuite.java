@@ -12,6 +12,8 @@ import java.lang.reflect.Parameter;
 import java.util.Vector;
 
 /**
+ * 测试组件
+ *
  * Created by zhanghaojie on 2017/8/14.
  */
 public class TestSuite implements Test {

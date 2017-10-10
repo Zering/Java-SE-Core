@@ -5,6 +5,8 @@ import junit3.listener.TestListener;
 import java.util.Vector;
 
 /**
+ * 测试结果统一管理
+ *
  * Created by zhanghaojie on 2017/8/14.
  */
 public class TestResult {
@@ -50,14 +52,21 @@ public class TestResult {
 
     protected void run(final TestCase testCase) {
         startTest(testCase);
-        try {
-            testCase.runBare();
-        } catch (AssertionFailedError failedError) {
-            addFailure(testCase, failedError);
-        } catch (Throwable throwable) {
-            addError(testCase, throwable);
-        }
+        this.runProtected(testCase, testCase::runBare);
         endTest(testCase);
+    }
+
+    public void runProtected(Test test, Protectable p) {
+        try {
+            p.protect();
+        } catch (AssertionFailedError var4) {
+            this.addFailure(test, var4);
+        } catch (ThreadDeath var5) {
+            throw var5;
+        } catch (Throwable var6) {
+            this.addError(test, var6);
+        }
+
     }
 
     protected void endTest(TestCase testCase) {
