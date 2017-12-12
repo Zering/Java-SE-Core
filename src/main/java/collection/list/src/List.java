@@ -1,52 +1,56 @@
 package collection.list.src;
 
 import collection.Collection;
-import collection.Iterable;
+import java.util.Iterator;
 
 /**
  * Created by zhanghaojie on 2017/10/11.
  */
 public interface List<E> extends Collection<E> {
 
-  E get(int index);
+    E get(int index);
 
-  E remove(int index);
+    E set(int index, E element);
 
-  void sort(Comparable<? extends E> comparable);
+    E remove(int index);
 
-  @Override
-  int size();
+    void sort(Comparable<? extends E> comparable);
 
-  @Override
-  boolean isEmpty();
+    @Override
+    int size();
 
-  @Override
-  boolean contains();
+    @Override
+    boolean isEmpty();
 
-  @Override
-  boolean containsAll(Collection<?> c);
+    @Override
+    boolean contains(Object o);
 
-  @Override
-  boolean add(E element);
+//    @Override
+//    boolean containsAll(Collection<?> c);
 
-  @Override
-  boolean addAll(Collection<? extends E> c);
+    @Override
+    boolean add(E element);
 
-  @Override
-  boolean remove(Object o);
+    void add(int index, E element);
 
-  @Override
-  boolean removeAll(Collection<?> c);
+    @Override
+    boolean addAll(Collection<? extends E> c);
 
-  @Override
-  void clear();
+    @Override
+    boolean remove(Object o);
 
-  @Override
-  Iterable<E> iterator();
+    @Override
+    boolean removeAll(Collection<? extends E> c);
 
-  @Override
-  int hashCode();
+    @Override
+    void clear();
 
-  @Override
-  boolean equals(Object o);
+    @Override
+    Iterator<E> iterator();
+
+    @Override
+    int hashCode();
+
+    @Override
+    boolean equals(Object o);
 }
