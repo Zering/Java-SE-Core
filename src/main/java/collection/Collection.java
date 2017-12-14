@@ -45,11 +45,6 @@ public interface Collection<E> extends Iterable<E> {
   boolean remove(Object o);
 
   /**
-   * 移除包含在另一个集合类中的所有元素
-   */
-  boolean removeAll(Collection<? extends E> c);
-
-  /**
    * 清空集合
    */
   void clear();

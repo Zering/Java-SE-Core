@@ -76,7 +76,40 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
 
   @Override
   public void clear() {
+    Iterator<E> iter = iterator();
+    while (iter.hasNext()) {
+      iter.next();
+      iter.remove();
+    }
+  }
 
+  @Override
+  public int hashCode() {
+    int hashcode = 1;
+    for (E o : this) {
+      hashcode = 31 * hashcode + (o == null ? 0 : o.hashCode());
+    }
+    return hashcode;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (obj == this) {
+      return true;
+    }
+    if (!(obj instanceof List)) {
+      return false;
+    }
+    Iterator<E> o1 = this.iterator();
+    Iterator o2 = ((List) obj).iterator();
+    while (o1.hasNext() && o2.hasNext()) {
+      E e1 = o1.next();
+      Object e2 = o2.next();
+      if (!(e1 == null ? e2 == null : e1.equals(e2))) {
+        return false;
+      }
+    }
+    return !(o1.hasNext() || o2.hasNext());
   }
 
   @Override
@@ -88,10 +121,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
 
     // 游标
     int cursor = 0;
-
     // 最后操作的索引 -1表示上一次是删除
     int lastRet = -1;
-
 
     @Override
     public boolean hasNext() {
@@ -123,7 +154,6 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
         throw new NoSuchElementException();
       }
     }
-
 
   }
 

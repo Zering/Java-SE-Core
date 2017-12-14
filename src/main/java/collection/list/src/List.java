@@ -25,9 +25,6 @@ public interface List<E> extends Collection<E> {
     @Override
     boolean contains(Object o);
 
-//    @Override
-//    boolean containsAll(Collection<?> c);
-
     @Override
     boolean add(E element);
 
@@ -38,9 +35,6 @@ public interface List<E> extends Collection<E> {
 
     @Override
     boolean remove(Object o);
-
-    @Override
-    boolean removeAll(Collection<? extends E> c);
 
     @Override
     void clear();
