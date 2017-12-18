@@ -1,5 +1,7 @@
 package collection.list.src;
 
+import java.util.Arrays;
+
 /**
  * Created by zhanghaojie on 2017/10/11.
  */
@@ -19,7 +21,7 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
   }
 
   @SuppressWarnings("unchecked")
-  E elementData(int index) {
+  private E elementData(int index) {
     return (E) elementData[index];
   }
 
@@ -81,11 +83,47 @@ public class ArrayList<E> extends AbstractList<E> implements List<E> {
   @Override
   public boolean add(E element) {
     ensureCapacity(size + 1);
-
     return super.add(element);
   }
 
-  private void ensureCapacity(int i) {
+  /**
+   * 检查容量
+   */
+  private void ensureCapacity(int minCap) {
+    if (elementData == EMPTY_DATA) {
+      minCap = Math.min(DEFAULT_CAPACITY, minCap);
+    }
 
+    if (elementData.length <= minCap) {
+      grow(minCap);
+    }
+  }
+
+  private void grow(int minCap) {
+    int oldCap = elementData.length;
+    int newCap = oldCap + oldCap >> 1;
+    if (newCap < minCap) {
+      newCap = minCap;
+    }
+    if (newCap < 0) { // 超出int值
+      throw new OutOfMemoryError();
+    }
+
+    elementData = Arrays.copyOf(elementData, newCap);
+  }
+
+  @Override
+  public E remove(int index) {
+    checkRange(index);
+    E oldValue = elementData(index);
+
+    // 前移其后的所有数据
+    int numMove = size - 1 - index;
+    if (numMove > 0) {
+      System.arraycopy(elementData, index + 1, elementData, index, numMove);
+    }
+    elementData[--size] = null;
+
+    return oldValue;
   }
 }

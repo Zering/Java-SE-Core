@@ -20,22 +20,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
 
   @Override
   public E remove(int index) {
-    return null;
-  }
-
-  @Override
-  public void sort(Comparable<? extends E> comparable) {
-
-  }
-
-  @Override
-  public int size() {
-    return 0;
-  }
-
-  @Override
-  public boolean isEmpty() {
-    return false;
+    throw new UnsupportedOperationException();
   }
 
   @Override
@@ -60,18 +45,8 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
   }
 
   @Override
-  public boolean addAll(Collection<? extends E> c) {
-    return false;
-  }
-
-  @Override
   public boolean remove(Object o) {
     throw new UnsupportedOperationException();
-  }
-
-  @Override
-  public boolean removeAll(Collection<? extends E> c) {
-    return false;
   }
 
   @Override

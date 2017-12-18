@@ -45,6 +45,11 @@ public interface Collection<E> extends Iterable<E> {
   boolean remove(Object o);
 
   /**
+   * 移除集合
+   */
+  boolean removeAll(Collection<? extends E> var1);
+
+  /**
    * 清空集合
    */
   void clear();

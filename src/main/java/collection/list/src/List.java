@@ -14,8 +14,6 @@ public interface List<E> extends Collection<E> {
 
     E remove(int index);
 
-    void sort(Comparable<? extends E> comparable);
-
     @Override
     int size();
 
