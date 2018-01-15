@@ -19,6 +19,20 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <resources>
+            <resource>
+                <directory>${basedir}/src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                    <include>**/*.yaml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>${basedir}/src/main/resources</directory>
+            </resource>
+        </resources>
     </build>
 
     <dependencies>
@@ -83,6 +97,18 @@
             <version>3.4</version>
         </dependency>
 
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.18</version>
+        </dependency>
 
         <!-- 算法4 的jar包 需要导入到本地maven库 -->
         <!-- mvn install:install-file -Dfile="E:\git_repo\Java-SE-Core\lib\algs4.jar" -DgroupId=edu.princeton.cs

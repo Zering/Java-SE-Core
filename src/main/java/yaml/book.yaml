@@ -1,0 +1,9 @@
+- id : 1
+  name : 黑客与画家
+  author : Paul Graham
+  publish : 人民邮电出版社
+  price : 49
+- id : 2
+  name : 算法(第四版)
+  category : 图灵图书系列
+  price : 49
