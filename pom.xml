@@ -118,5 +118,13 @@
             <artifactId>algs4</artifactId>
             <version>4.0.0</version>
         </dependency>
+
+        <!-- ali 分布式治理框架dubbo -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>2.5.3</version>
+        </dependency>
+
     </dependencies>
 </project>

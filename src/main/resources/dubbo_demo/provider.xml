@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 服务端配置 -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!-- 服务方应用名 -->
+    <dubbo:application name="hello-server-provider"/>
+
+    <!-- 使用multicast广播注册中心暴露服务地址 -->
+    <dubbo:registry address="multicast://224.5.6.7:1234" />
+
+    <!-- 使用dubbo提供的协议传输数据,name可以设置为第三方rmi -->
+    <dubbo:protocol name="dubbo" port="20880" server="netty" client="netty" />
+
+    <!-- 向客户端提供的接口服务 -->
+    <dubbo:service interface="dubbo.api.HelloDemoI" ref="helloDemo" />
+
+    <!-- 本地bean -->
+    <bean id="helloDemo" class="dubbo.server.HelloDemo"/>
+</beans>
