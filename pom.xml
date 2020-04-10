@@ -111,12 +111,15 @@
         </dependency>
 
         <!-- 算法4 的jar包 需要导入到本地maven库 -->
-        <!-- mvn install:install-file -Dfile="E:\git_repo\Java-SE-Core\lib\algs4.jar" -DgroupId=edu.princeton.cs
+        <!-- https://mkyong.com/maven/how-to-include-library-manully-into-maven-local-repository/ -->
+        <!-- mvn install:install-file -Dfile="F:\work\Java-SE-Core\lib\algs4.jar" -DgroupId=edu.princeton.cs
         -DartifactId=algs4 -Dversion=4.0.0 -Dpackaging=jar -->
         <dependency>
             <groupId>edu.princeton.cs</groupId>
             <artifactId>algs4</artifactId>
             <version>4.0.0</version>
+            <scope>system</scope>
+            <systemPath>F:/work/Java-SE-Core/lib/algs4.jar</systemPath>
         </dependency>
 
         <!-- ali 分布式治理框架dubbo -->
