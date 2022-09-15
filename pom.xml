@@ -115,7 +115,7 @@
         <dependency>
             <groupId>org.yaml</groupId>
             <artifactId>snakeyaml</artifactId>
-            <version>1.18</version>
+            <version>1.31</version>
         </dependency>
 
         <!-- 算法4 的jar包 需要导入到本地maven库 -->
